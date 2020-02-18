@@ -1,52 +1,29 @@
 <template>
-  <div id="app">
-    <h2>Cats</h2>
-    <div v-for="(cat, n) in cats" :key="n">
-      <p>
-        <span class="cat">{{ cat }}</span>
-        <button @click="removeCat(n)">Remove</button>
-      </p>
-    </div>
-    <p>
-      <input v-model="newCat" />
-      <button @click="addCat">Add Cat</button>
-    </p>
+  <div>
+    <input v-model="text" />
+    <button @click="addtext">add</button>
   </div>
 </template>
-<!--<script>-->
-<!--export default {-->
-<!--  data() {-->
-<!--    return {-->
-<!--      cats: [],-->
-<!--      newCat: ''-->
-<!--    }-->
-<!--  },-->
-<!--  // DOM生成直後-->
-<!--  mounted() {-->
-<!--    if (localStorage.getItem('cats')) {-->
-<!--      try {-->
-<!--        this.cats = JSON.parse(localStorage.getItem('cats'))-->
-<!--      } catch (e) {-->
-<!--        localStorage.removeItem('cats')-->
-<!--      }-->
-<!--    }-->
-<!--  },-->
-<!--  methods: {-->
-<!--    addCat() {-->
-<!--      // ensure they actually typed something-->
-<!--      if (!this.newCat) return-->
-<!--      this.cats.push(this.newCat)-->
-<!--      this.newCat = ''-->
-<!--      this.saveCats()-->
-<!--    },-->
-<!--    removeCat(x) {-->
-<!--      this.cats.splice(x, 1)-->
-<!--      this.saveCats()-->
-<!--    },-->
-<!--    saveCats() {-->
-<!--      const parsed = JSON.stringify(this.cats)-->
-<!--      localStorage.setItem('cats', parsed)-->
-<!--    }-->
-<!--  }-->
-<!--}-->
-<!--</script>-->
+<script>
+import firebase from '~/plugins/firebase'
+import 'firebase/firestore'
+
+const db = firebase.firestore()
+export default {
+  data() {
+    return {
+      text: null,
+      texts: []
+    }
+  },
+  methods: {
+    addtext() {
+      if (!this.text) return
+      db.collection('users').add({
+        name: this.text
+      })
+      this.text = ''
+    }
+  }
+}
+</script>
