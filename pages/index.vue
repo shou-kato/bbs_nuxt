@@ -21,9 +21,7 @@ export default {
   computed: {
     txt() {
       const aaaa = this.tests
-      aaaa.sort(function(a, b) {
-        a.time < b.time ? 1 : -1
-      })
+      aaaa.sort((a, b) => (a.time < b.time ? 1 : -1))
       return aaaa
     }
   },
@@ -50,10 +48,8 @@ export default {
     get_random() {
       // 生成する文字列の長さ
       const l = 8
-
       // 生成する文字列に含める文字セット
       const c = 'abcdefghijklmnopqrstuvwxyz0123456789'
-
       const cl = c.length
       // eslint-disable-next-line no-unused-vars
       let r = ''
