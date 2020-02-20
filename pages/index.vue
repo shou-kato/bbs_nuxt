@@ -1,11 +1,10 @@
 <template>
   <div>
+    <h1>こんばんはです</h1>
     <input v-model="input_text" />
     <button @click="addinput_text">add</button>
     <ul id="example">
-      <li v-for="test in txt" :key="test.id">
-        {{ test.name }}
-      </li>
+      <li v-for="test in txt" :key="test.id">{{ test.name }}</li>
     </ul>
   </div>
 </template>
@@ -30,16 +29,17 @@ export default {
   },
   methods: {
     addinput_text() {
+      const date = new Date()
       if (!this.input_text) return
       db.collection('users').add({
         name: this.input_text,
-        time: new Date(),
+        time: date.getTime(),
         state: 'user_text',
         id: this.get_random()
       })
       this.tests.push({
         name: this.input_text,
-        time: new Date(),
+        time: date.getTime(),
         state: 'user_text',
         id: this.get_random()
       })
@@ -66,7 +66,6 @@ export default {
         .get()
       querySnapshot.docs.forEach((e) => {
         this.tests.push(e.data())
-        // ここで重複の配列を取り除く
       })
     }
   }
