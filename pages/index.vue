@@ -20,7 +20,11 @@ export default {
   },
   computed: {
     txt() {
-      return this.tests
+      const aaaa = this.tests
+      aaaa.sort(function(a, b) {
+        a.time < b.time ? 1 : -1
+      })
+      return aaaa
     }
   },
   created() {
