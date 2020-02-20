@@ -3,7 +3,7 @@
     <input v-model="input_text" />
     <button @click="addinput_text">add</button>
     <ul id="example">
-      <li v-for="test in tests" :key="test.id">
+      <li v-for="test in txt" :key="test.id">
         {{ test.name }}
       </li>
     </ul>
@@ -18,7 +18,14 @@ export default {
       tests: []
     }
   },
-  created() {},
+  computed: {
+    txt() {
+      return this.tests
+    }
+  },
+  created() {
+    this.get_store()
+  },
   methods: {
     addinput_text() {
       if (!this.input_text) return
@@ -28,8 +35,13 @@ export default {
         state: 'user_text',
         id: this.get_random()
       })
+      this.tests.push({
+        name: this.input_text,
+        time: new Date(),
+        state: 'user_text',
+        id: this.get_random()
+      })
       this.input_text = ''
-      this.save()
     },
     get_random() {
       // 生成する文字列の長さ
@@ -46,7 +58,7 @@ export default {
       }
       return r
     },
-    async save() {
+    async get_store() {
       // eslint-disable-next-line no-unused-vars
       const querySnapshot = await db
         .collection('users')
