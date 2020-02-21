@@ -32,14 +32,13 @@ export default {
   },
   methods: {
     onclickAddbutton() {
+      // 空の場合は除外
+      if (!this.inputText) return
       this.submitFirestore()
       this.addinputText()
     },
-    // messageの追加
+    // messageをfirestoreに追加
     submitFirestore() {
-      // 空の場合は除外
-      if (!this.inputText) return
-      // firestoreに追加
       db.collection('users').add({
         name: this.inputText,
         time: new Date(),
@@ -47,8 +46,8 @@ export default {
         id: this.get_random()
       })
     },
+    // 自分の配列にmessageをPush
     addinputText() {
-      // 自分の配列にPush
       this.messages.push({
         name: this.inputText,
         time: new Date(),
@@ -57,6 +56,7 @@ export default {
       })
       this.inputText = ''
     },
+    // 乱数生成関数
     get_random() {
       // 生成する文字列の長さ
       const l = 8
