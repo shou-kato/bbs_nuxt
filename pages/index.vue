@@ -1,10 +1,12 @@
 <template>
   <div>
     <h1>こんばんはです</h1>
-    <input v-model="input_text" />
-    <button @click="addinput_text">add</button>
+    <input v-model="inputText" />
+    <button @click="onclickAddbutton">add</button>
     <ul id="example">
-      <li v-for="test in txt" :key="test.id">{{ test.name }}</li>
+      <li v-for="messageSorted in messagesSorted" :key="messageSorted.id">
+        {{ messageSorted.name }}
+      </li>
     </ul>
   </div>
 </template>
@@ -13,37 +15,47 @@ import { db } from '~/plugins/firebase'
 export default {
   data() {
     return {
-      input_text: null,
-      tests: []
+      inputText: null,
+      messages: []
     }
   },
   computed: {
-    txt() {
-      const aaaa = this.tests
-      aaaa.sort((a, b) => (a.time < b.time ? 1 : -1))
-      return aaaa
+    // メッセージを日付順にソート
+    messagesSorted() {
+      const messages = this.messages
+      messages.sort((a, b) => (a.time < b.time ? 1 : -1))
+      return messages
     }
   },
   created() {
-    this.get_store()
+    this.getMessages()
   },
   methods: {
-    addinput_text() {
-      const date = new Date()
-      if (!this.input_text) return
+    onclickAddbutton() {
+      this.submitFirestore()
+      this.addinputText()
+    },
+    // messageの追加
+    submitFirestore() {
+      // 空の場合は除外
+      if (!this.inputText) return
+      // firestoreに追加
       db.collection('users').add({
-        name: this.input_text,
-        time: date.getTime(),
+        name: this.inputText,
+        time: new Date(),
         state: 'user_text',
         id: this.get_random()
       })
-      this.tests.push({
-        name: this.input_text,
-        time: date.getTime(),
+    },
+    addinputText() {
+      // 自分の配列にPush
+      this.messages.push({
+        name: this.inputText,
+        time: new Date(),
         state: 'user_text',
         id: this.get_random()
       })
-      this.input_text = ''
+      this.inputText = ''
     },
     get_random() {
       // 生成する文字列の長さ
@@ -58,14 +70,16 @@ export default {
       }
       return r
     },
-    async get_store() {
-      // eslint-disable-next-line no-unused-vars
+    // firestoreからメッセージを取得
+    async getMessages() {
       const querySnapshot = await db
         .collection('users')
         .where('state', '==', 'user_text')
         .get()
       querySnapshot.docs.forEach((e) => {
-        this.tests.push(e.data())
+        const data = e.data()
+        data.time = data.time.toDate()
+        this.messages.push(data)
       })
     }
   }
