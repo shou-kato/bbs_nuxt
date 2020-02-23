@@ -32,12 +32,10 @@ export default {
         })
         .catch((error) => {
           const errorCode = error.code
-          switch (errorCode) {
-            case errorCode:
-              this.error = true
-              this.errorMessage =
-                'メールアドレスまたはパスワードが正しくありません'
-              break
+          if (errorCode) {
+            this.error = true
+            this.errorMessage =
+              'メールアドレスまたはパスワードが正しくありません'
           }
         })
     }
