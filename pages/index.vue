@@ -63,7 +63,6 @@ export default {
       // 生成する文字列に含める文字セット
       const c = 'abcdefghijklmnopqrstuvwxyz0123456789'
       const cl = c.length
-      // eslint-disable-next-line no-unused-vars
       let r = ''
       for (let i = 0; i < l; i++) {
         r += c[Math.floor(Math.random() * cl)]
@@ -72,10 +71,7 @@ export default {
     },
     // firestoreからメッセージを取得
     async getMessages() {
-      const querySnapshot = await db
-        .collection('users')
-        .where('state', '==', 'user_text')
-        .get()
+      const querySnapshot = await db.collection('users').get()
       querySnapshot.docs.forEach((e) => {
         const data = e.data()
         data.time = data.time.toDate()
