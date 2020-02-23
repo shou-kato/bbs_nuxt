@@ -42,7 +42,6 @@ export default {
       db.collection('users').add({
         name: this.inputText,
         time: new Date(),
-        state: 'user_text',
         id: this.get_random()
       })
     },
