@@ -3,9 +3,9 @@
     <h1>こんばんはです</h1>
     <input v-model="inputText" />
     <button @click="onclickAddbutton">add</button>
-    <ul id="example">
+    <ul>
       <li v-for="messageSorted in messagesSorted" :key="messageSorted.id">
-        {{ messageSorted.name }}
+        {{ messageSorted.name }} {{ messageSorted.time }}
       </li>
     </ul>
   </div>
@@ -41,36 +41,36 @@ export default {
     submitFirestore() {
       db.collection('users').add({
         name: this.inputText,
-        time: new Date(),
-        id: this.get_random()
+        id: this.getRandom(),
+        time: new Date()
       })
     },
     // 自分の配列にmessageをPush
     addinputText() {
       this.messages.push({
         name: this.inputText,
-        time: new Date(),
-        state: 'user_text',
-        id: this.get_random()
+        id: this.getRandom(),
+        time: new Date()
       })
       this.inputText = ''
     },
     // 乱数生成関数
-    get_random() {
+    getRandom() {
       // 生成する文字列の長さ
-      const l = 8
+      const len = 8
       // 生成する文字列に含める文字セット
-      const c = 'abcdefghijklmnopqrstuvwxyz0123456789'
-      const cl = c.length
-      let r = ''
-      for (let i = 0; i < l; i++) {
-        r += c[Math.floor(Math.random() * cl)]
+      const alphanuMeric = 'abcdefghijklmnopqrstuvwxyz0123456789'
+      const strLen = alphanuMeric.length
+      let spaceStr = ''
+      for (let i = 0; i < len; i++) {
+        spaceStr += alphanuMeric[Math.floor(Math.random() * strLen)]
       }
-      return r
+      return spaceStr
     },
     // firestoreからメッセージを取得
     async getMessages() {
       const querySnapshot = await db.collection('users').get()
+      console.log(querySnapshot)
       querySnapshot.docs.forEach((e) => {
         const data = e.data()
         data.time = data.time.toDate()

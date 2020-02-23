@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form action="/login.vue" method="post">
+    <form action="" method="post">
       <p v-show="error">{{ errorMessage }}</p>
       <p>email</p>
       <input v-model="email" type="email" />
@@ -26,22 +26,17 @@ export default {
       this.error = false
       firebase
         .auth()
-        .createUserWithEmailAndPassword(this.email, this.emailPassword)
-        .then(() => console.log('登録完了'))
+        .signInWithEmailAndPassword(this.email, this.emailPassword)
+        .then(() => {
+          console.log('ログインできました')
+        })
         .catch((error) => {
           const errorCode = error.code
           switch (errorCode) {
-            case 'auth/invalid-email':
+            case errorCode:
               this.error = true
-              this.errorMessage = 'メールアドレスの形式が間違ってます'
-              break
-            case 'auth/weak-password':
-              this.error = true
-              this.errorMessage = '英数字6文字以上でお願いします'
-              break
-            case 'auth/email-already-in-use':
-              this.error = true
-              this.errorMessage = 'このメールアドレスは使用されています'
+              this.errorMessage =
+                'メールアドレスまたはパスワードが正しくありません'
               break
           }
         })
