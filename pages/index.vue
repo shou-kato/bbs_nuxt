@@ -1,21 +1,29 @@
 <template>
   <div>
-    <h1>こんばんはです</h1>
-    <input v-model="inputText" />
+    <h1>現在制作中の掲示板</h1>
+    <p>{{ displayName }}でログイン中</p>
+    {{ email }}
+    <nuxt-link to="/signup">signup</nuxt-link>
+    <nuxt-link to="/signIn">signin</nuxt-link>
+    <input v-model="inputTitle" />
+    <input v-model="inputBody" />
     <button @click="onclickAddbutton">add</button>
     <ul>
       <li v-for="messageSorted in messagesSorted" :key="messageSorted.id">
-        {{ messageSorted.name }} {{ messageSorted.time }}
+        {{ messageSorted.title }} {{ messageSorted.body }}
       </li>
     </ul>
   </div>
 </template>
 <script>
+import store from '~/store/index.js'
 import { db } from '~/plugins/firebase'
 export default {
   data() {
     return {
-      inputText: null,
+      displayName: '',
+      inputTitle: '',
+      inputBody: '',
       messages: []
     }
   },
@@ -25,22 +33,30 @@ export default {
       const messages = this.messages
       messages.sort((a, b) => (a.time < b.time ? 1 : -1))
       return messages
+    },
+    user() {
+      return this.$store.getters.user
+    },
+    familyName() {
+      return store.state.email
     }
   },
   created() {
     this.getMessages()
   },
+
   methods: {
     onclickAddbutton() {
       // 空の場合は除外
-      if (!this.inputText) return
+      if (!this.inputBody && !this.inputTitle) return
       this.submitFirestore()
       this.addinputText()
     },
     // messageをfirestoreに追加
     submitFirestore() {
-      db.collection('users').add({
-        name: this.inputText,
+      db.collection('post').add({
+        title: this.inputTitle,
+        body: this.inputBody,
         id: this.getRandom(),
         time: new Date()
       })
@@ -48,11 +64,13 @@ export default {
     // 自分の配列にmessageをPush
     addinputText() {
       this.messages.push({
-        name: this.inputText,
+        title: this.inputTitle,
+        body: this.inputBody,
         id: this.getRandom(),
         time: new Date()
       })
-      this.inputText = ''
+      this.inputTitle = ''
+      this.inputBody = ''
     },
     // 乱数生成関数
     getRandom() {
@@ -69,7 +87,7 @@ export default {
     },
     // firestoreからメッセージを取得
     async getMessages() {
-      const querySnapshot = await db.collection('users').get()
+      const querySnapshot = await db.collection('post').get()
       console.log(querySnapshot)
       querySnapshot.docs.forEach((e) => {
         const data = e.data()

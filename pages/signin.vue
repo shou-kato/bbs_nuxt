@@ -1,6 +1,7 @@
 <template>
   <div>
-    <form action="" method="post">
+    <h1>サインイン</h1>
+    <form action method="post">
       <p v-show="error">{{ errorMessage }}</p>
       <p>email</p>
       <input v-model="email" type="email" />
@@ -8,8 +9,10 @@
       <input v-model="emailPassword" type="password" />
     </form>
     <button @click="submitClick">送信</button>
+    <button @click="signout">サインアウト</button>
   </div>
 </template>
+
 <script>
 import firebase from '~/plugins/firebase'
 export default {
@@ -28,7 +31,7 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.emailPassword)
         .then(() => {
-          console.log('ログインできました')
+          alert('ログインできました')
         })
         .catch((error) => {
           const errorCode = error.code
@@ -38,6 +41,24 @@ export default {
               'メールアドレスまたはパスワードが正しくありません'
           }
         })
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          // User is signed in.
+          alert(
+            'あなたのメールアドレス' +
+              user.email +
+              'あなたのユーザーネーム' +
+              user.displayName
+          )
+          // ...
+        } else {
+          // User is signed out.
+          // ...
+        }
+      })
+    },
+    signout() {
+      firebase.auth().signOut()
     }
   }
 }

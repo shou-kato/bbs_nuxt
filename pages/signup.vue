@@ -1,7 +1,10 @@
 <template>
   <div>
+    <h1>サインアップ</h1>
     <form action="/login.vue" method="post">
       <p v-show="error">{{ errorMessage }}</p>
+      <p>名前</p>
+      <input v-model="displayName" />
       <p>email</p>
       <input v-model="email" type="email" />
       <p>password</p>
@@ -15,6 +18,7 @@ import firebase from '~/plugins/firebase'
 export default {
   data() {
     return {
+      displayName: '',
       email: '',
       emailPassword: '',
       errorMessage: '',
@@ -27,7 +31,17 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.emailPassword)
-        .then(() => console.log('登録完了'))
+        .then(() => {
+          firebase
+            .auth()
+            .currentUser.updateProfile({
+              displayName: this.displayName
+            })
+            .then(function(profile) {
+              // Update successful.
+            })
+          console.log('登録完了')
+        })
         .catch((error) => {
           const errorCode = error.code
           switch (errorCode) {
