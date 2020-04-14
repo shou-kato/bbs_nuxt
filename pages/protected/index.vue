@@ -86,10 +86,7 @@ export default {
       const querySnapshot = await db.collection('post').get()
       querySnapshot.docs.forEach((e) => {
         const data = e.data()
-        const converTime = async () => {
-          data.time = await data.time.toDate()
-        }
-        converTime()
+        data.time = data.time.toDate()
         this.messages.push(data)
       })
     },
