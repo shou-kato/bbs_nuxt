@@ -9,7 +9,7 @@
     <ul>
       <li v-for="messageSorted in messagesSorted" :key="messageSorted.id">
         {{ messageSorted.title }} {{ messageSorted.body }}
-        {{ messageSorted.user }}
+        {{ messageSorted.user }} {{ messageSorted.time }}
       </li>
     </ul>
   </div>
@@ -87,7 +87,7 @@ export default {
       console.log(querySnapshot)
       querySnapshot.docs.forEach((e) => {
         const data = e.data()
-        data.time = data.time.toDate()
+        console.log(data.time.toDate())
         this.messages.push(data)
       })
     },
