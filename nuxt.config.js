@@ -38,7 +38,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa'],
+  modules: ['@nuxtjs/pwa', '@nuxtjs/dotenv'],
   /*
    ** Build configuration
    */
@@ -49,6 +49,6 @@ export default {
     extend(config, ctx) {}
   },
   router: {
-    //middleware: 'authenticated'
+    //  middleware: 'authenticated'
   }
 }

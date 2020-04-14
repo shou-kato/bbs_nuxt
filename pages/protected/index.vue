@@ -2,11 +2,10 @@
   <div>
     <h1>現在制作中の掲示板</h1>
     <p>{{ $store.state.user }}でログイン中</p>
-    <nuxt-link to="/signup">signup</nuxt-link>
-    <nuxt-link to="/signIn">signin</nuxt-link>
     <input v-model="inputTitle" />
     <input v-model="inputBody" />
     <button @click="onclickAddbutton">add</button>
+    <button @click="logout">ログアウト</button>
     <ul>
       <li v-for="messageSorted in messagesSorted" :key="messageSorted.id">
         {{ messageSorted.title }} {{ messageSorted.body }}
@@ -91,6 +90,9 @@ export default {
         data.time = data.time.toDate()
         this.messages.push(data)
       })
+    },
+    logout() {
+      this.$store.dispatch('logout')
     }
   }
 }
