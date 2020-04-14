@@ -1,3 +1,4 @@
+// vuexのstateをlocalstoregeに保存するプラグイン
 import createPersistedState from 'vuex-persistedstate'
 
 export default ({ store, isHMR }) => {
