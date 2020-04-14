@@ -19,9 +19,7 @@ export default {
   },
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
-      setTimeout(() =>
-        console.log(this.$store.dispatch('setUser', user.displayName))
-      )
+      console.log(this.$store.dispatch('setUser', user.displayName))
     })
   },
   methods: {
