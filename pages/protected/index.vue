@@ -84,10 +84,9 @@ export default {
     // firestoreからメッセージを取得
     async getMessages() {
       const querySnapshot = await db.collection('post').get()
-      console.log(querySnapshot)
       querySnapshot.docs.forEach((e) => {
         const data = e.data()
-        console.log(data.time.toDate())
+        setTimeout(() => console.log((data.time = data.time.toDate())))
         this.messages.push(data)
       })
     },
