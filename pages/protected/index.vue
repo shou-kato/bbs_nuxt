@@ -1,9 +1,12 @@
 <template>
   <div>
-    <h1>現在制作中の掲示板</h1>
+    <h1>けいじば〜ん</h1>
     <p>{{ $store.state.user }}でログイン中</p>
-    <input v-model="inputTitle" />
-    <input v-model="inputBody" />
+    // 右上に表示
+    <v-text-field type="text" v-model="inputTitle" label="タイトル" required>
+    </v-text-field>
+    <v-text-field type="text" v-model="inputBody" label="ほんぶん" required>
+    </v-text-field>
     <button @click="onclickAddbutton">add</button>
     <button @click="logout">ログアウト</button>
     <ul>

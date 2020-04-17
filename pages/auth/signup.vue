@@ -1,15 +1,25 @@
 <template>
   <div>
     <h1>サインアップ</h1>
-    <form action="/login.vue" method="post">
-      <p v-show="error">{{ errorMessage }}</p>
-      <p>名前</p>
-      <input v-model="displayName" />
-      <p>email</p>
-      <input v-model="email" type="email" />
-      <p>password</p>
-      <input v-model="emailPassword" type="password" />
-    </form>
+    <p v-show="error">{{ errorMessage }}</p>
+    <v-text-field
+      type="text"
+      v-model="displayName"
+      label="Name"
+      required
+    ></v-text-field>
+    <v-text-field
+      type="email"
+      v-model="email"
+      label="email"
+      required
+    ></v-text-field>
+    <v-text-field
+      type="password"
+      v-model="emailPassword"
+      label="password"
+      required
+    ></v-text-field>
     <button @click="submitClick">送信</button>
   </div>
 </template>

@@ -1,8 +1,15 @@
 <template>
   <div>
     {{ $store.state.user }}
-    <input type="text" v-model="email" />
-    <input type="password" v-model="emailPassword" />
+    <v-text-field type="email" v-model="email" label="email" required>
+    </v-text-field>
+    <v-text-field
+      type="password"
+      v-model="emailPassword"
+      label="password"
+      required
+    >
+    </v-text-field>
     <button v-on:click="dologin">ログイン</button>
     <nuxt-link to="/auth/signup">サインアップ画面へ</nuxt-link>
   </div>
