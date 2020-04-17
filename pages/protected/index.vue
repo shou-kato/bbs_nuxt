@@ -7,8 +7,8 @@
     </v-text-field>
     <v-text-field type="text" v-model="inputBody" label="ほんぶん" required>
     </v-text-field>
-    <button @click="onclickAddbutton">add</button>
-    <button @click="logout">ログアウト</button>
+    <v-btn text @click="onclickAddbutton">add</v-btn>
+    <v-btn text @click="logout">logout</v-btn>
     <ul>
       <li v-for="messageSorted in messagesSorted" :key="messageSorted.id">
         <p>タイトル{{ messageSorted.title }}</p>

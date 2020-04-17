@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>サインアップ</h1>
+    <h1>signup!!</h1>
     <p v-show="error">{{ errorMessage }}</p>
     <v-text-field
       type="text"
@@ -20,7 +20,8 @@
       label="password"
       required
     ></v-text-field>
-    <button @click="submitClick">送信</button>
+    <v-btn text large @click="submitClick">signup</v-btn>
+    <v-btn text to="/auth/login" nuxt>login-menu</v-btn>
   </div>
 </template>
 <script>

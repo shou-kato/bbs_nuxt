@@ -10,8 +10,8 @@
       required
     >
     </v-text-field>
-    <button v-on:click="dologin">ログイン</button>
-    <nuxt-link to="/auth/signup">サインアップ画面へ</nuxt-link>
+    <v-btn text @click="dologin">login</v-btn>
+    <v-btn text to="/auth/signup" nuxt>signup</v-btn>
   </div>
 </template>
 
