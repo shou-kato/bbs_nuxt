@@ -31,16 +31,12 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.emailPassword)
-        .then(() => {
-          firebase
-            .auth()
-            .currentUser.updateProfile({
-              displayName: this.displayName
-            })
-            .then(function(profile) {
-              // Update successful.
-            })
-          console.log('登録完了')
+        .then(async () => {
+          console.log('処理が始まるよ')
+          await firebase.auth().currentUser.updateProfile({
+            displayName: this.displayName
+          })
+          this.$router.push('/auth/login')
         })
         .catch((error) => {
           const errorCode = error.code

@@ -1,5 +1,8 @@
-//  export default function({ store, redirect, route }) {
-//  if (route.path === '/') {
-//    return redirect('/auth/signin')
-//  }
-//  }
+export default function({ store, route, redirect }) {
+  if (!store.getters.isAuthenticated && route.name !== '/auth/login') {
+    redirect('/auth/login')
+  }
+  if (store.getters.isAuthenticated && route.name === '/auth/login') {
+    redirect('/protected')
+  }
+}

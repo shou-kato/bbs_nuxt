@@ -1,5 +1,5 @@
 export default {
-  mode: 'spa',
+  mode: 'ssr',
   /*
    ** Headers of the page
    */
@@ -48,7 +48,5 @@ export default {
      */
     extend(config, ctx) {}
   },
-  router: {
-    //  middleware: 'authenticated'
-  }
+  router: {}
 }

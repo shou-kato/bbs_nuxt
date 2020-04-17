@@ -3,8 +3,8 @@
     {{ $store.state.user }}
     <input type="text" v-model="email" />
     <input type="password" v-model="emailPassword" />
-    <button v-on:click="login">ログイン</button>
-    <button v-on:click="logout">ログアウト</button>
+    <button v-on:click="dologin">ログイン</button>
+    <nuxt-link to="/auth/signup">サインアップ画面へ</nuxt-link>
   </div>
 </template>
 
@@ -20,10 +20,16 @@ export default {
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       console.log(this.$store.dispatch('setUser', user.displayName))
+      if (user) {
+        this.$router.push('/protected')
+      }
+      if (!user) {
+        console.log('メールアドレスが正しくありません')
+      }
     })
   },
   methods: {
-    login() {
+    dologin() {
       this.error = false
       firebase
         .auth()
@@ -38,7 +44,7 @@ export default {
           }
         })
     },
-    logout() {
+    dologout() {
       firebase.auth().signOut()
       this.$store.dispatch('logout')
     }

@@ -8,15 +8,19 @@
     <button @click="logout">ログアウト</button>
     <ul>
       <li v-for="messageSorted in messagesSorted" :key="messageSorted.id">
-        {{ messageSorted.title }} {{ messageSorted.body }}
-        {{ messageSorted.user }}
+        <p>タイトル{{ messageSorted.title }}</p>
+        <p>メッセージ本文{{ messageSorted.body }}</p>
+        <p>ユーザー名{{ messageSorted.user }}</p>
+        <p>投稿日時{{ messageSorted.time }}</p>
       </li>
     </ul>
   </div>
 </template>
 <script>
+import firebase from '~/plugins/firebase'
 import { db } from '~/plugins/firebase'
 export default {
+  middleware: 'authenticated',
   data() {
     return {
       displayName: '',
@@ -91,7 +95,15 @@ export default {
       })
     },
     logout() {
-      this.$store.dispatch('logout')
+      return new Promise((resolve, reject) => {
+        firebase
+          .auth()
+          .signOut()
+          .then(
+            () => this.$store.dispatch('logout'),
+            this.$router.push('/auth/login')
+          )
+      })
     }
   }
 }
