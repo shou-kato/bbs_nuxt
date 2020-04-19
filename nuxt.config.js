@@ -27,17 +27,25 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~plugins/persistedstate.js', ssr: false }],
+  plugins: [
+    { src: '~/plugins/persistedstate.js', ssr: false },
+    { src: '~/plugins/firebase' }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-     '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify',
 
     // With options
-    ['@nuxtjs/vuetify', { /* module options */ }]
+    [
+      '@nuxtjs/vuetify',
+      {
+        /* module options */
+      }
+    ]
   ],
   /*
    ** Nuxt.js modules

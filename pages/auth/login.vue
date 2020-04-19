@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import firebase from '~/plugins/firebase'
 export default {
   data() {
     return {
@@ -32,7 +31,7 @@ export default {
     }
   },
   mounted() {
-    firebase.auth().onAuthStateChanged((user) => {
+    this.$auth.onAuthStateChanged((user) => {
       console.log(this.$store.dispatch('setUser', user.displayName))
       if (user) {
         this.$router.push('/protected')
@@ -45,8 +44,7 @@ export default {
   methods: {
     dologin() {
       this.error = false
-      firebase
-        .auth()
+      this.$auth
         .signInWithEmailAndPassword(this.email, this.emailPassword)
         .then()
         .catch((error) => {
@@ -59,7 +57,7 @@ export default {
         })
     },
     dologout() {
-      firebase.auth().signOut()
+      this.$$auth.signOut()
       this.$store.dispatch('logout')
     }
   }

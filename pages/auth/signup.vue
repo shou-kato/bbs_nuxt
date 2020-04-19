@@ -25,7 +25,6 @@
   </div>
 </template>
 <script>
-import firebase from '~/plugins/firebase'
 export default {
   data() {
     return {
@@ -39,12 +38,11 @@ export default {
   methods: {
     submitClick() {
       this.error = false
-      firebase
-        .auth()
+      this.$auth
         .createUserWithEmailAndPassword(this.email, this.emailPassword)
         .then(async () => {
           console.log('処理が始まるよ')
-          await firebase.auth().currentUser.updateProfile({
+          await this.$auth.currentUser.updateProfile({
             displayName: this.displayName
           })
           this.$router.push('/auth/login')

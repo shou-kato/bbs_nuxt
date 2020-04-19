@@ -1,14 +1,25 @@
 <template>
   <div>
     <h1>けいじば〜ん</h1>
-    <p>{{ $store.state.user }}でログイン中</p>
-    // 右上に表示
-    <v-text-field type="text" v-model="inputTitle" label="タイトル" required>
-    </v-text-field>
-    <v-text-field type="text" v-model="inputBody" label="ほんぶん" required>
-    </v-text-field>
-    <v-btn text @click="onclickAddbutton">add</v-btn>
-    <v-btn text @click="logout">logout</v-btn>
+    <v-card width="150" class="mx-auto">
+      <v-card-text>
+        <p>{{ $store.state.user }}でログイン中</p>
+      </v-card-text>
+    </v-card>
+    <v-text-field
+      v-model="inputTitle"
+      type="text"
+      label="タイトル"
+      required
+    ></v-text-field>
+    <v-text-field
+      v-model="inputBody"
+      type="text"
+      label="ほんぶん"
+      required
+    ></v-text-field>
+    <v-btn width="100" @click="onclickAddbutton">add</v-btn>
+    <v-btn width="100" @click="logout">logout</v-btn>
     <ul>
       <li v-for="messageSorted in messagesSorted" :key="messageSorted.id">
         <p>タイトル{{ messageSorted.title }}</p>
@@ -20,8 +31,8 @@
   </div>
 </template>
 <script>
-import firebase from '~/plugins/firebase'
-import { db } from '~/plugins/firebase'
+// import firebase, { $firestore } from '~/plugins/firebase'
+
 export default {
   middleware: 'authenticated',
   data() {
@@ -54,7 +65,7 @@ export default {
     // messageをfirestoreに追加
     submitFirestore() {
       const user = this.$store.state.user
-      db.collection('post').add({
+      this.$firestore.collection('post').add({
         title: this.inputTitle,
         body: this.inputBody,
         id: this.getRandom(),
@@ -90,7 +101,7 @@ export default {
     },
     // firestoreからメッセージを取得
     async getMessages() {
-      const querySnapshot = await db.collection('post').get()
+      const querySnapshot = await this.$firestore.collection('post').get()
       querySnapshot.docs.forEach((e) => {
         const data = e.data()
         data.time = data.time.toDate()
@@ -99,8 +110,7 @@ export default {
     },
     logout() {
       return new Promise((resolve, reject) => {
-        firebase
-          .auth()
+        this.$auth()
           .signOut()
           .then(
             () => this.$store.dispatch('logout'),

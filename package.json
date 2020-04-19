@@ -4,6 +4,12 @@
   "description": "My ace Nuxt.js project",
   "author": "kato sho",
   "private": true,
+  "config": {
+    "nuxt": {
+      "host": "192.168.33.10",
+      "port": "3000"
+    }
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
