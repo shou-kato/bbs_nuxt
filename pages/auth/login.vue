@@ -42,18 +42,20 @@ export default {
   },
   methods: {
     dologin() {
-      this.error = false
       this.$auth
         .signInWithEmailAndPassword(this.email, this.emailPassword)
-        .then()
+        .then(() => console.log('ログイン完了'))
         .catch((error) => {
-          const errorCode = error.code
-          if (errorCode) {
-            this.error = true
-            this.errorMessage =
-              'メールアドレスまたはパスワードが正しくありません'
+          const error = error.code
+          switch (error) {
           }
         })
+      // this.error = true
+      // this.errorMessage = 'メールアドレスかパスワードが間違っています'
+      // setTimeout(() => {
+      //   this.errorMessage = ''
+      // }, 10000)
+      // this.error = false
     },
     dologout() {
       this.$$auth.signOut()
