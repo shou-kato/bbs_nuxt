@@ -109,13 +109,9 @@ export default {
       })
     },
     logout() {
-      return new Promise((resolve, reject) => {
-        this.$auth()
-          .signOut()
-          .then(
-            () => this.$store.dispatch('logout'),
-            this.$router.push('/auth/login')
-          )
+      this.$auth.signOut().then(() => {
+        this.$store.dispatch('logout')
+        this.$router.push('/auth/login')
       })
     }
   }
