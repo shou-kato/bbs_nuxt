@@ -3,20 +3,20 @@
     <h1>signup!!</h1>
     <p v-show="error">{{ errorMessage }}</p>
     <v-text-field
-      type="text"
       v-model="displayName"
+      type="text"
       label="Name"
       required
     ></v-text-field>
     <v-text-field
-      type="email"
       v-model="email"
+      type="email"
       label="email"
       required
     ></v-text-field>
     <v-text-field
-      type="password"
       v-model="emailPassword"
+      type="password"
       label="password"
       required
     ></v-text-field>
