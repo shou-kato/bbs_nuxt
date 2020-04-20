@@ -3,6 +3,7 @@
     <h1>
       ログインがめーん
     </h1>
+    {{ errorMessage }}
     <v-text-field
       v-model="email"
       type="email"
@@ -26,7 +27,8 @@ export default {
   data() {
     return {
       email: '',
-      emailPassword: ''
+      emailPassword: '',
+      errorMessage: ''
     }
   },
   mounted() {
@@ -46,8 +48,13 @@ export default {
         .signInWithEmailAndPassword(this.email, this.emailPassword)
         .then(() => console.log('ログイン完了'))
         .catch((error) => {
-          const error = error.code
-          switch (error) {
+          const errorCode = error.code
+          const errorMessage = error.message
+
+          if (errorCode === 'auth/wrong-password') {
+            this.errorMessage = 'Wrong password'
+          } else {
+            alert(errorMessage)
           }
         })
       // this.error = true

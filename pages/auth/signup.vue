@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>signup!!</h1>
-    <p v-show="error">{{ errorMessage }}</p>
+    {{ errorMessage }}
     <v-text-field
       v-model="displayName"
       type="text"
@@ -31,13 +31,11 @@ export default {
       displayName: '',
       email: '',
       emailPassword: '',
-      errorMessage: '',
-      error: false
+      errorMessage: ''
     }
   },
   methods: {
     submitClick() {
-      this.error = false
       this.$auth
         .createUserWithEmailAndPassword(this.email, this.emailPassword)
         .then(async () => {
@@ -49,19 +47,12 @@ export default {
         })
         .catch((error) => {
           const errorCode = error.code
-          switch (errorCode) {
-            case 'auth/invalid-email':
-              this.error = true
-              this.errorMessage = 'メールアドレスの形式が間違ってます'
-              break
-            case 'auth/weak-password':
-              this.error = true
-              this.errorMessage = '英数字6文字以上でお願いします'
-              break
-            case 'auth/email-already-in-use':
-              this.error = true
-              this.errorMessage = 'このメールアドレスは使用されています'
-              break
+          const errorMessage = error.message
+
+          if (errorCode === 'auth/weak-password') {
+            this.errorMessage = 'weak-password'
+          } else {
+            alert(errorMessage)
           }
         })
     }
