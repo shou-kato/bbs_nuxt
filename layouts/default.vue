@@ -1,5 +1,5 @@
 <template lang="pug">
-  #app-wrapper
+  .app
     Appheader
     #content-wrapper
       nuxt    

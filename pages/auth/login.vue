@@ -1,15 +1,12 @@
 <template lang="pug">
-  div.login-content
-    h1 ログイン画面
-      p {{ errorMessge }}
-      .form
-        p.form-content メールアドレス
-        input(v-model="email" type="email" class="login-form")
-        p.form-content パスワード
-        input(v-model="emailPassword" type="password" class="login-form")
-      button(@click="dologin") login
-      a(href="/auth/signup" )
-        button signup
+.app
+  .form-group
+    label(for="exampleInputEmail1") Email address
+    input(type="email" v-model="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email")
+  .form-group
+    label(for="exampleInputpassword") Password
+    input(type="password" v-model="emailPassword" class="form-control" id="exampleInputPassword1" placeholder="Password" )
+    button(@click="dologin" class="btn btn-primary") login
     
 </template>
 <script>
