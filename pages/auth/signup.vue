@@ -1,28 +1,16 @@
-<template>
-  <div>
-    <h1>signup!!</h1>
-    {{ errorMessage }}
-    <v-text-field
-      v-model="displayName"
-      type="text"
-      label="Name"
-      required
-    ></v-text-field>
-    <v-text-field
-      v-model="email"
-      type="email"
-      label="email"
-      required
-    ></v-text-field>
-    <v-text-field
-      v-model="emailPassword"
-      type="password"
-      label="password"
-      required
-    ></v-text-field>
-    <v-btn text large @click="submitClick">signup</v-btn>
-    <v-btn text to="/auth/login" nuxt>login-menu</v-btn>
-  </div>
+<template lang="pug">
+  div
+    h1 signup
+    p {{ erorrMessage }}
+    p お名前
+    input(v-model="displayName" type="text")
+    p メールアドレス
+    input(v-model="email" type="email")
+    p パスワード
+    input(v-model="emailPassword" type="password")
+    button(@click="submitClick") signup
+    a(href="/auth/login" )
+      button login-menu
 </template>
 <script>
 export default {

@@ -1,40 +1,21 @@
-<template>
-  <div>
-    <h1>けいじば〜ん</h1>
-    <v-card width="150" class="mx-auto">
-      <v-card-text>
-        <p>{{ $store.state.user }}でログイン中</p>
-      </v-card-text>
-    </v-card>
-    <v-text-field
-      v-model="inputTitle"
-      type="text"
-      label="タイトル"
-      required
-    ></v-text-field>
-    <v-text-field
-      v-model="inputBody"
-      type="text"
-      label="ほんぶん"
-      required
-    ></v-text-field>
-    <v-btn width="100" @click="onclickAddbutton">add</v-btn>
-    <v-btn width="100" @click="logout">logout</v-btn>
-    <ul>
-      <li v-for="messageSorted in messagesSorted" :key="messageSorted.id">
-        <p>タイトル{{ messageSorted.title }}</p>
-        <p>メッセージ本文{{ messageSorted.body }}</p>
-        <p>ユーザー名{{ messageSorted.user }}</p>
-        <p>投稿日時{{ messageSorted.time }}</p>
-      </li>
-    </ul>
-  </div>
+<template lang="pug">
+  div
+    p {{ $store.state.user }} でログイン中
+    input(v-model="inputTitle" type="text")
+    input(v-model="inputBody" type="text")
+    button(@click="onclickAddbutton") add
+    button(@click="logout") logout
+    ul
+      li(v-for="messageSorted in messagesSorted" :key="messageSorted.id")
+        p {{ messageSorted.title }}
+        p {{ messageSorted.body }}
+        p {{ messageSorted.user }}
+        p {{ messageSorted.time }}
 </template>
-<script>
-// import firebase, { $firestore } from '~/plugins/firebase'
 
+<script>
 export default {
-  middleware: 'authenticated',
+  layout: 'default',
   data() {
     return {
       displayName: '',

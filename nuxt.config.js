@@ -50,7 +50,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa', '@nuxtjs/dotenv'],
+  modules: ['@nuxtjs/pwa', '@nuxtjs/dotenv', 'bootstrap-vue/nuxt'],
   /*
    ** Build configuration
    */

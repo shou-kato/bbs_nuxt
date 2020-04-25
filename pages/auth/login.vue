@@ -1,27 +1,17 @@
-<template>
-  <div id="app">
-    <h1>
-      ログインがめーん
-    </h1>
-    {{ errorMessage }}
-    <v-text-field
-      v-model="email"
-      type="email"
-      label="email"
-      required
-    ></v-text-field>
-    <v-text-field
-      v-model="emailPassword"
-      type="password"
-      label="password"
-      required
-    ></v-text-field>
-    <v-btn width="100" icon @click="dologin">login</v-btn>
-    <v-btn width="100" icon @click="dologout">login</v-btn>
-    <v-btn width="100" icon to="/auth/signup" nuxt>signup</v-btn>
-  </div>
+<template lang="pug">
+  div.login-content
+    h1 ログイン画面
+      p {{ errorMessge }}
+      .form
+        p.form-content メールアドレス
+        input(v-model="email" type="email" class="login-form")
+        p.form-content パスワード
+        input(v-model="emailPassword" type="password" class="login-form")
+      button(@click="dologin") login
+      a(href="/auth/signup" )
+        button signup
+    
 </template>
-
 <script>
 export default {
   data() {
@@ -71,3 +61,14 @@ export default {
   }
 }
 </script>
+<style>
+.login-content {
+  min-height: 100%;
+}
+.form {
+  padding: 10px 10px 10px 10px;
+}
+.form-content {
+  color: #000000;
+}
+</style>
