@@ -1,15 +1,17 @@
 <template lang="pug">
 .app
-  h1 ログイン画面
+  .my-4
+    h1 ログイン画面
+    nuxt-link(to="/auth/signup")
+      button().btn.btn-primary.btn_info.float-right signup画面に移動
   .form-group
     label(for="exampleInputEmail1") Email address
-    input(type="email" v-model="email" class="form-control"  aria-describedby="emailHelp" placeholder="Enter email")
+    input(type="email" v-model="email" aria-describedby="emailHelp" placeholder="Enter email").form-control
   .form-group
     label(for="exampleInputpassword") Password
-    input(type="password" v-model="emailPassword" class="form-control"  placeholder="Password" )
-    button(@click="dologin" class="btn btn-primary") login
-  nuxt-link(to="/auth/signup")
-    button(class="btn btn-primary") signup画面に移動
+    input(type="password" v-model="emailPassword" placeholder="Password" ).form-control
+  .ml-4
+    button(@click="dologin").btn.btn-primary.btn-lg login
 </template>
 <script>
 export default {

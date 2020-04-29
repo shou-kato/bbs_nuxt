@@ -7,4 +7,10 @@ export default {
   name: 'Header'
 }
 </script>
-<style></style>
+<style>
+header {
+  padding: 5px 10px;
+  width: 100%;
+  height: 60px;
+}
+</style>

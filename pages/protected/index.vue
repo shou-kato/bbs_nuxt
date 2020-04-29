@@ -7,15 +7,16 @@
     button(@click="logout") logout
     ul
       li(v-for="messageSorted in messagesSorted" :key="messageSorted.id")
-        p {{ messageSorted.title }}
+        p たいとる{{ messageSorted.title }}
         p {{ messageSorted.body }}
-        p {{ messageSorted.user }}
-        p {{ messageSorted.time }}
+        p 投稿者{{ messageSorted.user }}
+        p 投稿時間{{ messageSorted.time }}
 </template>
 
 <script>
 export default {
   layout: 'default',
+  middleware: 'authenticated',
   data() {
     return {
       displayName: '',

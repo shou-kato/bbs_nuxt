@@ -11,6 +11,8 @@ export default {
 footer {
   position: absolute;
   bottom: 0;
+  padding: 20px 20px;
   width: 100%;
+  height: 60px;
 }
 </style>
