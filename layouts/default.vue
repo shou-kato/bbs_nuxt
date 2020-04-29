@@ -12,8 +12,4 @@ export default {
   components: { Appheader, Appfooter }
 }
 </script>
-<style>
-body {
-  font-size: 16px;
-}
-</style>
+<style></style>

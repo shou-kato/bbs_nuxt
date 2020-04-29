@@ -1,5 +1,5 @@
 <template lang="pug">
-  .card-header.bg-dark
+  header.header.bg-dark
     h1.text-white けいじばーん
 </template>
 <script>

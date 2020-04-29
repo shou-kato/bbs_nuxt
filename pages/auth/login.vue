@@ -1,13 +1,15 @@
 <template lang="pug">
 .app
+  h1 ログイン画面
   .form-group
     label(for="exampleInputEmail1") Email address
-    input(type="email" v-model="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email")
+    input(type="email" v-model="email" class="form-control"  aria-describedby="emailHelp" placeholder="Enter email")
   .form-group
     label(for="exampleInputpassword") Password
-    input(type="password" v-model="emailPassword" class="form-control" id="exampleInputPassword1" placeholder="Password" )
+    input(type="password" v-model="emailPassword" class="form-control"  placeholder="Password" )
     button(@click="dologin" class="btn btn-primary") login
-    
+  nuxt-link(to="/auth/signup")
+    button(class="btn btn-primary") signup画面に移動
 </template>
 <script>
 export default {
@@ -44,16 +46,6 @@ export default {
             alert(errorMessage)
           }
         })
-      // this.error = true
-      // this.errorMessage = 'メールアドレスかパスワードが間違っています'
-      // setTimeout(() => {
-      //   this.errorMessage = ''
-      // }, 10000)
-      // this.error = false
-    },
-    dologout() {
-      this.$$auth.signOut()
-      this.$store.dispatch('logout')
     }
   }
 }
