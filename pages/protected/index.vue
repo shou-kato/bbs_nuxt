@@ -1,16 +1,19 @@
 <template lang="pug">
   div
-    p {{ $store.state.user }} でログイン中
-    input(v-model="inputTitle" type="text")
-    input(v-model="inputBody" type="text")
-    button(@click="onclickAddbutton") add
-    button(@click="logout") logout
+    .card.float-right(style="width: 200px;")
+      .card-body 
+        p.m-0 {{$store.state.user }} でログイン中
     ul
       li(v-for="messageSorted in messagesSorted" :key="messageSorted.id")
         p たいとる{{ messageSorted.title }}
         p {{ messageSorted.body }}
         p 投稿者{{ messageSorted.user }}
         p 投稿時間{{ messageSorted.time }}
+    .input-form
+      input(v-model="inputTitle" type="text")
+      input(v-model="inputBody" type="text")
+      button(@click="onclickAddbutton") add
+      button(@click="logout") logout
 </template>
 
 <script>
@@ -104,3 +107,8 @@ export default {
   }
 }
 </script>
+<style>
+.input-form {
+  margin-bottom: 100px;
+}
+</style>

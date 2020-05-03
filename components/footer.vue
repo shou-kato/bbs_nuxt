@@ -9,8 +9,7 @@ export default {
 </script>
 <style>
 footer {
-  position: absolute;
-  bottom: 0;
+  margin-top: auto;
   padding: 20px 20px;
   width: 100%;
   height: 60px;

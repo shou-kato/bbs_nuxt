@@ -1,5 +1,5 @@
 <template lang="pug">
-  .app
+  .wrapper
     Appheader
     #content-wrapper
       nuxt    
@@ -12,4 +12,10 @@ export default {
   components: { Appheader, Appfooter }
 }
 </script>
-<style></style>
+<style>
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+</style>
