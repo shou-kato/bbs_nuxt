@@ -5,12 +5,13 @@
         p {{$store.state.user }} でログイン中
         button(@click="logout").btn.btn-primary.btn-l logout
     ul.card
-      li(v-for="messageSorted in messagesSorted" :key="messageSorted.id")
+      li(v-for="(messageSorted, index) in messagesSorted" :key="messageSorted.id")
         p.card-header たいとる{{ messageSorted.title }}
         .card-body
           p {{ messageSorted.body }}
           p {{ messageSorted.user }}
           p {{ messageSorted.time }}
+          button(@click="contentDelete(index)").btn.btn-primary.float-right delete
     .form-group
       label(for="exampleInputEmail1") タイトル
       input(type="text" v-model="inputTitle" aria-describedby="inputTitleHelp" placeholder="Enter Title").form-control
@@ -95,6 +96,9 @@ export default {
         data.time = data.time.toDate()
         this.messages.push(data)
       })
+    },
+    contentDelete(index) {
+      this.messages.splice(index, 1)
     },
     logout() {
       this.$auth
