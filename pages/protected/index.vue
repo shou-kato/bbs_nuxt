@@ -15,7 +15,7 @@
     .form-group
       label(for="exampleInputEmail1") タイトル
       input(type="text" v-model="inputTitle" aria-describedby="inputTitleHelp" placeholder="Enter Title").form-control
-      label(for="exampleInputEmail1") タイトル
+      label(for="exampleInputEmail1") ほんぶん
       input(type="text" v-model="inputBody" aria-describedby="inputBodyHelp" placeholder="Enter Body").form-control
       button(@click="onclickAddbutton").btn.btn-primary.btn-lg.m-4 add
 </template>
@@ -61,6 +61,16 @@ export default {
         time: new Date(),
         user
       })
+      // this.$firestore
+      //   .collection('post')
+      //   .doc('1')
+      //   .set({
+      //     title: this.inputTitle,
+      //     body: this.inputBody,
+      //     id: this.getRandom(),
+      //     time: new Date(),
+      //     user
+      //   })
     },
     // 自分の配列にmessageをPush
     addinputText() {
