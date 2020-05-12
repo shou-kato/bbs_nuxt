@@ -61,16 +61,6 @@ export default {
         time: new Date(),
         user
       })
-      // this.$firestore
-      //   .collection('post')
-      //   .doc('1')
-      //   .set({
-      //     title: this.inputTitle,
-      //     body: this.inputBody,
-      //     id: this.getRandom(),
-      //     time: new Date(),
-      //     user
-      //   })
     },
     // 自分の配列にmessageをPush
     addinputText() {
@@ -108,7 +98,21 @@ export default {
       })
     },
     contentDelete(index) {
+      const db = this.$firestore
+      const messId = this.messages[index].id
       this.messages.splice(index, 1)
+      db.collection('post')
+        .where('id', '==', messId) // ローカル配列の
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            db.collection('post')
+              .doc(doc.id)
+              .delete()
+          })
+        })
+        .catch(() => console.log('hello world'))
     },
     logout() {
       this.$auth
