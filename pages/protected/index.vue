@@ -11,120 +11,121 @@
           p {{ messageSorted.body }}
           p {{ messageSorted.user }}
           p {{ messageSorted.time }}
-          button(@click="contentDelete(index)").btn.btn-primary.float-right delete
+          button(@click="contentDelete(index)" v-if="nya() === 'WoS3gG1TyZeel1W8VBQ2ZFZoUWR2'").btn.btn-primary.float-right delete
     .form-group
       label(for="exampleInputEmail1") タイトル
       input(type="text" v-model="inputTitle" aria-describedby="inputTitleHelp" placeholder="Enter Title").form-control
       label(for="exampleInputEmail1") ほんぶん
       input(type="text" v-model="inputBody" aria-describedby="inputBodyHelp" placeholder="Enter Body").form-control
-      button(@click="onclickAddbutton").btn.btn-primary.btn-lg.m-4 add
+      button(@click="onclickAddbutton").btn.btn-primary.btn-lg.m-4 adds
 </template>
 
 <script>
 export default {
-  layout: 'default',
-  middleware: 'authenticated',
-  data() {
-    return {
-      displayName: '',
-      inputTitle: '',
-      inputBody: '',
-      messages: []
-    }
-  },
-  computed: {
-    // メッセージを日付順にソート
-    messagesSorted() {
-      const messages = this.messages
-      messages.sort((a, b) => (a.time < b.time ? 1 : -1))
-      return messages
-    }
-  },
-  created() {
-    this.getMessages()
-  },
-
-  methods: {
-    onclickAddbutton() {
-      // 空の場合は除外
-      if (!this.inputBody && !this.inputTitle) return
-      this.submitFirestore()
-      this.addinputText()
+    layout: 'default',
+    middleware: 'authenticated',
+    data() {
+        return {
+            displayName: '',
+            inputTitle: '',
+            inputBody: '',
+            messages: [],
+        }
     },
-    // messageをfirestoreに追加
-    submitFirestore() {
-      const user = this.$store.state.user
-      this.$firestore.collection('post').add({
-        title: this.inputTitle,
-        body: this.inputBody,
-        id: this.getRandom(),
-        time: new Date(),
-        user
-      })
+    computed: {
+        // メッセージを日付順にソート
+        messagesSorted() {
+            const messages = this.messages
+            messages.sort((a, b) => (a.time < b.time ? 1 : -1))
+            return messages
+        },
     },
-    // 自分の配列にmessageをPush
-    addinputText() {
-      const user = this.$store.state.user
-      this.messages.push({
-        title: this.inputTitle,
-        body: this.inputBody,
-        id: this.getRandom(),
-        time: new Date(),
-        user
-      })
-      this.inputTitle = ''
-      this.inputBody = ''
+    created() {
+        this.getMessages()
     },
-    // 乱数生成関数
-    getRandom() {
-      // 生成する文字列の長さ
-      const len = 8
-      // 生成する文字列に含める文字セット
-      const alphanuMeric = 'abcdefghijklmnopqrstuvwxyz0123456789'
-      const strLen = alphanuMeric.length
-      let spaceStr = ''
-      for (let i = 0; i < len; i++) {
-        spaceStr += alphanuMeric[Math.floor(Math.random() * strLen)]
-      }
-      return spaceStr
+    methods: {
+        nya() {
+            const user = this.$auth.currentUser.uid
+            return user
+        },
+        onclickAddbutton() {
+            // 空の場合は除外
+            if (!this.inputBody && !this.inputTitle) return
+            this.submitFirestore()
+        },
+        // messageをfirestoreに追加
+        submitFirestore() {
+            const ref = doc => this.$firestore.collection('post').doc(doc)
+            const obuject = this
+            const now = new Date()
+            this.$firestore
+                .collection('post')
+                .add({
+                    title: this.inputTitle,
+                    body: this.inputBody,
+                    id: '',
+                    time: now, // 別に切り分ける
+                    user: this.$store.state.user,
+                })
+                .then(function(docref) {
+                    obuject.addinputText(docref.id, now)
+                    ref(docref.id).update({
+                        id: docref.id,
+                    })
+                })
+        },
+        // 自分の配列にmessageをPush
+        addinputText(docId, now) {
+            this.messages.push({
+                title: this.inputTitle,
+                body: this.inputBody,
+                id: docId,
+                time: now, // 別に切り分ける
+                user: this.$store.state.user,
+            })
+            this.inputTitle = ''
+            this.inputBody = ''
+        },
+        // 乱数生成関数
+        getRandom() {
+            const len = 8
+            const alphanuMeric = 'abcdefghijklmnopqrstuvwxyz0123456789'
+            const strLen = alphanuMeric.length
+            let spaceStr = ''
+            for (let i = 0; i < len; i++) {
+                spaceStr += alphanuMeric[Math.floor(Math.random() * strLen)]
+            }
+            return spaceStr
+        },
+        // firestoreからメッセージを取得
+        async getMessages() {
+            const querySnapshot = await this.$firestore.collection('post').get()
+            querySnapshot.forEach(e => {
+                const data = e.data()
+                data.time = data.time.toDate()
+                this.messages.push(data)
+            })
+        },
+        contentDelete(index) {
+            // オブジェクトのインデックス番号を取得
+            const messId = this.messages[index].id
+            this.$firestore
+                .collection('post')
+                .doc(messId)
+                .delete()
+            this.messages.splice(index, 1)
+        },
+        logout() {
+            this.$auth
+                .signOut()
+                .then(() => {
+                    this.$store.dispatch('logout')
+                    this.$router.push('/auth/login')
+                })
+                .catch(() => {
+                    console.log('ログアウトできませんでした')
+                })
+        },
     },
-    // firestoreからメッセージを取得
-    async getMessages() {
-      const querySnapshot = await this.$firestore.collection('post').get()
-      querySnapshot.docs.forEach((e) => {
-        const data = e.data()
-        data.time = data.time.toDate()
-        this.messages.push(data)
-      })
-    },
-    contentDelete(index) {
-      const db = this.$firestore
-      const messId = this.messages[index].id
-      this.messages.splice(index, 1)
-      db.collection('post')
-        .where('id', '==', messId) // ローカル配列の
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            db.collection('post')
-              .doc(doc.id)
-              .delete()
-          })
-        })
-        .catch(() => console.log('hello world'))
-    },
-    logout() {
-      this.$auth
-        .signOut()
-        .then(() => {
-          this.$store.dispatch('logout')
-          this.$router.push('/auth/login')
-        })
-        .catch(() => {
-          console.log('ログアウトできませんでした')
-        })
-    }
-  }
 }
 </script>

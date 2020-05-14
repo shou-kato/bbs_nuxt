@@ -4,14 +4,14 @@
 </template>
 <script>
 export default {
-  name: 'Footer'
+    name: 'Footer',
 }
 </script>
 <style>
 footer {
-  margin-top: auto;
-  padding: 20px 20px;
-  width: 100%;
-  height: 60px;
+    margin-top: auto;
+    padding: 20px 20px;
+    width: 100%;
+    height: 60px;
 }
 </style>

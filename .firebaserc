@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "bbs-5c4d6"
+    "default": "bbs-5c4d6",
+    "yes": "nuxt-bbs-ac678"
   }
 }

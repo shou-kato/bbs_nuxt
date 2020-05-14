@@ -15,51 +15,51 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      email: '',
-      emailPassword: '',
-      errorMessage: ''
-    }
-  },
-  mounted() {
-    this.$auth.onAuthStateChanged((user) => {
-      console.log(this.$store.dispatch('setUser', user.displayName))
-      if (user) {
-        this.$router.push('/protected')
-      }
-      if (!user) {
-        console.log('メールアドレスが正しくありません')
-      }
-    })
-  },
-  methods: {
-    dologin() {
-      this.$auth
-        .signInWithEmailAndPassword(this.email, this.emailPassword)
-        .then(() => console.log('ログイン完了'))
-        .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-
-          if (errorCode === 'auth/wrong-password') {
-            this.errorMessage = 'Wrong password'
-          } else {
-            alert(errorMessage)
-          }
+    data() {
+        return {
+            email: '',
+            emailPassword: '',
+            errorMessage: '',
+        }
+    },
+    mounted() {
+        this.$auth.onAuthStateChanged(user => {
+            this.$store.dispatch('setUser', user.displayName)
+            if (user) {
+                this.$router.push('/protected')
+            }
+            if (!user) {
+                console.log('メールアドレスが正しくありません')
+            }
         })
-    }
-  }
+    },
+    methods: {
+        dologin() {
+            this.$auth
+                .signInWithEmailAndPassword(this.email, this.emailPassword)
+                .then(() => console.log('ログイン完了'))
+                .catch(error => {
+                    const errorCode = error.code
+                    const errorMessage = error.message
+
+                    if (errorCode === 'auth/wrong-password') {
+                        this.errorMessage = 'Wrong password'
+                    } else {
+                        alert(errorMessage)
+                    }
+                })
+        },
+    },
 }
 </script>
 <style>
 .login-content {
-  min-height: 100%;
+    min-height: 100%;
 }
 .form {
-  padding: 10px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
 }
 .form-content {
-  color: #000000;
+    color: #000000;
 }
 </style>

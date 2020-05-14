@@ -4,13 +4,13 @@
 </template>
 <script>
 export default {
-  name: 'Header'
+    name: 'Header',
 }
 </script>
 <style>
 header {
-  padding: 5px 10px;
-  width: 100%;
-  height: 60px;
+    padding: 5px 10px;
+    width: 100%;
+    height: 60px;
 }
 </style>
