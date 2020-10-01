@@ -1,5 +1,5 @@
 export default {
-    mode: 'ssr',
+    mode: 'universal',
     /*
      ** Headers of the page
      */
@@ -46,6 +46,7 @@ export default {
         // Doc: https://github.com/nuxt-community/eslint-module
         '@nuxtjs/eslint-module',
         '@nuxtjs/vuetify',
+        '@nuxtjs/date-fns',
 
         // With options
         [
@@ -55,6 +56,13 @@ export default {
             },
         ],
     ],
+
+    dateFns: {
+        /* module options */
+        locales: ['ja'],
+        defaultLocale: 'ja',
+        methods: ['format', 'parseISO'],
+    },
     /*
      ** Nuxt.js modules
      */

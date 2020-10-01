@@ -1,23 +1,21 @@
-<template lang="pug">
-  div
-    .card.text-right
-      .card-body
-        p {{$store.state.user }} でログイン中
-        button(@click="logout").btn.btn-primary.btn-l logout
-    ul.card
-      li(v-for="(messageSorted, index) in messagesSorted" :key="messageSorted.id")
-        p.card-header たいとる{{ messageSorted.title }}
-        .card-body
-          p {{ messageSorted.body }}
-          p {{ messageSorted.user }}
-          p {{ messageSorted.time }}
-          button(@click="contentDelete(index)" v-if="nya() === 'WoS3gG1TyZeel1W8VBQ2ZFZoUWR2'").btn.btn-primary.float-right delete
-    .form-group
-      label(for="exampleInputEmail1") タイトル
-      input(type="text" v-model="inputTitle" aria-describedby="inputTitleHelp" placeholder="Enter Title").form-control
-      label(for="exampleInputEmail1") ほんぶん
-      input(type="text" v-model="inputBody" aria-describedby="inputBodyHelp" placeholder="Enter Body").form-control
-      button(@click="onclickAddbutton").btn.btn-primary.btn-lg.m-4 adds
+<template>
+    <div>
+        <p>{{ $store.state.user }}</p>
+        <button @click="logout"></button>
+        <div v-if="show">
+            <ul v-for="messaged in messagesSorted" :key="messaged.id">
+                <li>{{ messaged.title }}</li>
+                <li>{{ messaged.body }}</li>
+                <li>{{ messaged.user }}</li>
+                <li>
+                    {{ $dateFns.format(messaged.time, 'yyyy年 M月 d日') }}
+                </li>
+            </ul>
+            <input v-model="inputTitle" />
+            <input v-model="inputBody" type="text" />
+            <button @click="onclickAddbutton"></button>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -30,6 +28,7 @@ export default {
             inputTitle: '',
             inputBody: '',
             messages: [],
+            show: false,
         }
     },
     computed: {
@@ -42,9 +41,10 @@ export default {
     },
     created() {
         this.getMessages()
+        this.show = true
     },
     methods: {
-        nya() {
+        checkHostUser() {
             const user = this.$auth.currentUser.uid
             return user
         },
