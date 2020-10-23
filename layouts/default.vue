@@ -1,21 +1,16 @@
-<template lang="pug">
-  .wrapper
-    Appheader
-    #content-wrapper
-      nuxt    
-    Appfooter
+<template>
+    <v-app>
+        <appheader />
+        <v-main>
+            <v-container fluid class="pa-0">
+                <nuxt />
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
 <script>
-import Appheader from '@/components/header'
-import Appfooter from '@/components/footer'
+import appheader from '@/components/header'
 export default {
-    components: { Appheader, Appfooter },
+    components: { appheader },
 }
 </script>
-<style>
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-</style>

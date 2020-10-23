@@ -1,6 +1,12 @@
 <template>
     <div>
-        <p>{{ $store.state.user }}</p>
+        <v-container>
+            <v-card>
+                <v-card-text>hello</v-card-text>
+            </v-card>
+            <v-btn @click="logout">ログアウト</v-btn>
+        </v-container>
+        <!-- <p>{{ $store.state.user }}</p>
         <button @click="logout"></button>
         <div v-if="show">
             <ul v-for="messaged in messagesSorted" :key="messaged.id">
@@ -13,8 +19,7 @@
             </ul>
             <input v-model="inputTitle" />
             <input v-model="inputBody" type="text" />
-            <button @click="onclickAddbutton"></button>
-        </div>
+            <button @click="onclickAddbutton"></button> -->
     </div>
 </template>
 
@@ -123,7 +128,7 @@ export default {
                     this.$router.push('/auth/login')
                 })
                 .catch(() => {
-                    console.log('ログアウトできませんでした')
+                    alert('ログアウトできませんでした')
                 })
         },
     },
