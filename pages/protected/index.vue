@@ -61,7 +61,6 @@ export default {
         // messageをfirestoreに追加
         submitFirestore() {
             const ref = doc => this.$firestore.collection('post').doc(doc)
-            const obuject = this
             const now = new Date()
             this.$firestore
                 .collection('post')
@@ -72,8 +71,8 @@ export default {
                     time: now, // 別に切り分ける
                     user: this.$store.state.user,
                 })
-                .then(function(docref) {
-                    obuject.addinputText(docref.id, now)
+                .then(docref => {
+                    this.addinputText(docref.id, now)
                     ref(docref.id).update({
                         id: docref.id,
                     })
