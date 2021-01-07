@@ -1,5 +1,6 @@
+require('dotenv').config()
 export default {
-    mode: 'ssr',
+    mode: false,
     /*
      ** Headers of the page
      */
@@ -46,15 +47,13 @@ export default {
         // Doc: https://github.com/nuxt-community/eslint-module
         '@nuxtjs/eslint-module',
         '@nuxtjs/vuetify',
-
-        // With options
-        [
-            '@nuxtjs/vuetify',
-            {
-                /* module options */
-            },
-        ],
+        '@nuxtjs/date-fns',
+        '@nuxtjs/vuetify',
     ],
+
+    dateFns: {
+        /* module options */
+    },
     /*
      ** Nuxt.js modules
      */

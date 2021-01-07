@@ -1,6 +1,6 @@
 <template lang="pug">
   footer.footer.bg-dark
-    p.text-white Copyright © 2020 hige Inc. All Rights Reserved.
+    p.text-white Copyright © 2020 sho kato Inc. All Rights Reserved.
 </template>
 <script>
 export default {

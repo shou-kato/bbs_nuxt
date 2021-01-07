@@ -29,7 +29,7 @@ export default {
                 this.$router.push('/protected')
             }
             if (!user) {
-                console.log('メールアドレスが正しくありません')
+                throw this.errorMessage
             }
         })
     },
@@ -37,15 +37,14 @@ export default {
         dologin() {
             this.$auth
                 .signInWithEmailAndPassword(this.email, this.emailPassword)
-                .then(() => console.log('ログイン完了'))
+                .then()
                 .catch(error => {
                     const errorCode = error.code
                     const errorMessage = error.message
-
                     if (errorCode === 'auth/wrong-password') {
                         this.errorMessage = 'Wrong password'
                     } else {
-                        alert(errorMessage)
+                        throw errorMessage
                     }
                 })
         },

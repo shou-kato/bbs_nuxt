@@ -10,7 +10,7 @@
         .card-body
           p {{ messageSorted.body }}
           p {{ messageSorted.user }}
-          p {{ messageSorted.time }}
+          p {{ $dateFns.format(messageSorted.time , 'yyyy年 MM月 dd日') }}
           button(@click="contentDelete(index)" v-if="nya() === 'WoS3gG1TyZeel1W8VBQ2ZFZoUWR2'").btn.btn-primary.float-right delete
     .form-group
       label(for="exampleInputEmail1") タイトル
@@ -42,6 +42,9 @@ export default {
     },
     created() {
         this.getMessages()
+    },
+    mounted() {
+        console.log(process.env.API_KEY)
     },
     methods: {
         nya() {
@@ -122,8 +125,8 @@ export default {
                     this.$store.dispatch('logout')
                     this.$router.push('/auth/login')
                 })
-                .catch(() => {
-                    console.log('ログアウトできませんでした')
+                .catch(err => {
+                    throw err
                 })
         },
     },
