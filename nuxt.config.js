@@ -5,7 +5,7 @@ export default {
      ** Headers of the page
      */
     head: {
-        title: process.env.npm_package_name || '',
+        title: '掲示板',
         meta: [
             { charset: 'utf-8' },
             {
@@ -53,6 +53,9 @@ export default {
 
     dateFns: {
         /* module options */
+        locales: ['ja'],
+        defaultLocale: 'ja',
+        methods: ['format', 'parseISO'],
     },
     /*
      ** Nuxt.js modules

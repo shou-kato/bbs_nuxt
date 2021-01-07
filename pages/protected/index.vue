@@ -1,23 +1,26 @@
-<template lang="pug">
-  div
-    .card.text-right
-      .card-body
-        p {{$store.state.user }} でログイン中
-        button(@click="logout").btn.btn-primary.btn-l logout
-    ul.card
-      li(v-for="(messageSorted, index) in messagesSorted" :key="messageSorted.id")
-        p.card-header たいとる{{ messageSorted.title }}
-        .card-body
-          p {{ messageSorted.body }}
-          p {{ messageSorted.user }}
-          p {{ $dateFns.format(messageSorted.time , 'yyyy年 MM月 dd日') }}
-          button(@click="contentDelete(index)" v-if="nya() === 'WoS3gG1TyZeel1W8VBQ2ZFZoUWR2'").btn.btn-primary.float-right delete
-    .form-group
-      label(for="exampleInputEmail1") タイトル
-      input(type="text" v-model="inputTitle" aria-describedby="inputTitleHelp" placeholder="Enter Title").form-control
-      label(for="exampleInputEmail1") ほんぶん
-      input(type="text" v-model="inputBody" aria-describedby="inputBodyHelp" placeholder="Enter Body").form-control
-      button(@click="onclickAddbutton").btn.btn-primary.btn-lg.m-4 adds
+<template>
+    <div>
+        <v-container>
+            <v-card>
+                <v-card-text>hello</v-card-text>
+            </v-card>
+            <v-btn @click="logout">ログアウト</v-btn>
+        </v-container>
+        <!-- <p>{{ $store.state.user }}</p>
+        <button @click="logout"></button>
+        <div v-if="show">
+            <ul v-for="messaged in messagesSorted" :key="messaged.id">
+                <li>{{ messaged.title }}</li>
+                <li>{{ messaged.body }}</li>
+                <li>{{ messaged.user }}</li>
+                <li>
+                    {{ $dateFns.format(messaged.time, 'yyyy年 M月 d日') }}
+                </li>
+            </ul>
+            <input v-model="inputTitle" />
+            <input v-model="inputBody" type="text" />
+            <button @click="onclickAddbutton"></button> -->
+    </div>
 </template>
 
 <script>
@@ -30,6 +33,7 @@ export default {
             inputTitle: '',
             inputBody: '',
             messages: [],
+            show: false,
         }
     },
     computed: {
@@ -42,12 +46,13 @@ export default {
     },
     created() {
         this.getMessages()
+        this.show = true
     },
     mounted() {
         console.log(process.env.API_KEY)
     },
     methods: {
-        nya() {
+        checkHostUser() {
             const user = this.$auth.currentUser.uid
             return user
         },
@@ -59,7 +64,6 @@ export default {
         // messageをfirestoreに追加
         submitFirestore() {
             const ref = doc => this.$firestore.collection('post').doc(doc)
-            const obuject = this
             const now = new Date()
             this.$firestore
                 .collection('post')
@@ -70,8 +74,8 @@ export default {
                     time: now, // 別に切り分ける
                     user: this.$store.state.user,
                 })
-                .then(function(docref) {
-                    obuject.addinputText(docref.id, now)
+                .then(docref => {
+                    this.addinputText(docref.id, now)
                     ref(docref.id).update({
                         id: docref.id,
                     })
@@ -125,8 +129,8 @@ export default {
                     this.$store.dispatch('logout')
                     this.$router.push('/auth/login')
                 })
-                .catch(err => {
-                    throw err
+                .catch(() => {
+                    console.log('ログアウトできませんでした')
                 })
         },
     },

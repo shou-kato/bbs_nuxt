@@ -37,7 +37,7 @@ export default {
         dologin() {
             this.$auth
                 .signInWithEmailAndPassword(this.email, this.emailPassword)
-                .then()
+                .then(() => this.$router.push('/protected'))
                 .catch(error => {
                     const errorCode = error.code
                     const errorMessage = error.message
