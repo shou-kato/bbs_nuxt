@@ -34,10 +34,9 @@ export default {
   },
   mounted() {
     this.$auth.onAuthStateChanged((user) => {
+      if (user == null) return
       this.$store.dispatch('setUser', user.displayName)
-      if (user) {
-        this.$router.push('/protected')
-      }
+      if (user) return this.$router.push('/protected')
       if (!user) return 
     })
   },
@@ -47,10 +46,7 @@ export default {
         .signInWithEmailAndPassword(this.email, this.emailPassword)
         .then(() => this.$router.push('/protected'))
         .catch((error) => {
-          const errorCode = error.code
-          if (errorCode === 'auth/wrong-password') {
-            this.errorMessage = 'Wrong password'
-          } 
+          throw error
         })
     },
   },
