@@ -1,16 +1,12 @@
 <template>
-    <v-app>
-        <appheader />
-        <v-main>
-            <v-container fluid class="pa-0">
-                <nuxt />
-            </v-container>
-        </v-main>
-    </v-app>
+  <div>
+    <appheader />
+    <nuxt />
+  </div>
 </template>
 <script>
 import appheader from '@/components/header'
 export default {
-    components: { appheader },
+  components: { appheader },
 }
 </script>

@@ -1,10 +1,11 @@
-<template lang="pug">
-  footer.footer.bg-dark
-    p.text-white Copyright © 2020 sho kato Inc. All Rights Reserved.
+<template>
+  <footer>
+    <p>Copyright © 2020 sho kato Inc. All Rights Reserved.</p>
+  </footer>
 </template>
 <script>
 export default {
-    name: 'Footer',
+  name: 'Footer',
 }
 </script>
 <style>
