@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{{ $store.state.user }}</p>
+    <p><span style="padding-right: 10px;">ユーザー名</span>{{ $store.state.user }}</p>
     <button @click="logout">
       ログアウト
     </button>
@@ -10,10 +10,12 @@
         v-for="messaged in messagesSorted"
         :key="messaged.id"
       >
-        <p>{{ messaged.title }}</p>
-        <p>{{ messaged.body }}</p>
-        <p>{{ messaged.user }}</p>
+        <p><span style="padding-right: 30px;">タイトル</span>{{ messaged.title }}</p>
+        <p><span style="padding-right: 30px;">本文</span>{{ messaged.body }}</p>
+
+        <p><span style="padding-right: 30px;">投稿ユーザー</span>{{ messaged.user }}</p>
         <p>
+          <span style="padding-right: 30px;">投稿時間</span>
           {{ $dateFns.format(messaged.time, 'yyyy年 M月 d日') }}
         </p>
       </section>
