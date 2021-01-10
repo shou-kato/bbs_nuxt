@@ -1,17 +1,20 @@
 <template>
-  <div>
-    <h1>ログイン</h1>
+  <div style="text-align: center">
+
+  <h1>ログイン</h1>
     <nuxt-link to="/auth/signup">
       <button>signup画面に移動</button>
     </nuxt-link>
-    <div>
+    <div style="margin-top: 50px;">
       <label for="">
+        <p>Email</p>
         <input
           v-model="email"
           type="email"
         >
       </label>
       <label for="">
+        <p>Passworld</p>
         <input
           v-model="emailPassword"
           type="password"
@@ -19,7 +22,7 @@
       </label>
     </div>
     <button @click="login">
-      login
+      ログインする
     </button>
   </div>
 </template>
@@ -37,7 +40,7 @@ export default {
       if (user == null) return
       this.$store.dispatch('setUser', user.displayName)
       if (user) return this.$router.push('/protected')
-      if (!user) return 
+      if (!user) return
     })
   },
   methods: {
@@ -62,4 +65,14 @@ export default {
 .form-content {
     color: #000000;
 }
+
+input {
+  margin-bottom: 40px;
+  width: 50%; /*親要素いっぱい広げる*/
+  font-size: 16px;
+  border-radius: 3px; /*ボックス角の丸み*/
+  border: 2px solid #ddd; /*枠線*/
+  box-sizing: border-box; /*横幅の解釈をpadding, borderまでとする*/
+}
 </style>
+

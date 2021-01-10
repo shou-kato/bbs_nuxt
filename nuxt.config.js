@@ -47,7 +47,6 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify',
     '@nuxtjs/date-fns',
   ],
 
@@ -60,7 +59,7 @@ export default {
   /*
      ** Nuxt.js modules
      */
-  modules: ['@nuxtjs/pwa', '@nuxtjs/dotenv'],
+  modules: ['@nuxtjs/dotenv'],
   /*
      ** Build configuration
      */

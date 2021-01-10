@@ -4,24 +4,34 @@
     <button @click="logout">
       ログアウト
     </button>
-    <div v-if="show">
-      <ul
+    <div v-if="show" style="margin-top: 40px;">
+      <section
+        style="  border-style: solid;border-width: 1px; border-color: black; margin-bottom: 30px; width: 50%;"
         v-for="messaged in messagesSorted"
         :key="messaged.id"
       >
-        <li>{{ messaged.title }}</li>
-        <li>{{ messaged.body }}</li>
-        <li>{{ messaged.user }}</li>
-        <li>
+        <p>{{ messaged.title }}</p>
+        <p>{{ messaged.body }}</p>
+        <p>{{ messaged.user }}</p>
+        <p>
           {{ $dateFns.format(messaged.time, 'yyyy年 M月 d日') }}
-        </li>
-      </ul>
-      <input v-model="inputTitle">
-      <input
-        v-model="inputBody"
-        type="text"
-      >
-      <button @click="onclickAddbutton" />
+        </p>
+      </section>
+
+      <label>
+        <p>タイトル</p>
+        <input v-model="inputTitle">
+      </label>
+
+      <label>
+        <p>本文</p>
+        <input
+          v-model="inputBody"
+          type="text"
+        >
+      </label>
+
+      <button @click="onclickAddbutton">投稿する</button>
     </div>
   </div>
 </template>

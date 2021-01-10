@@ -1,22 +1,26 @@
 <template>
-  <div>
+  <div style="text-align: center">
     <h1>signup</h1>
     <nuxt-link to="/auth/login">
-      <button>ioginへ</button>
+      <button>ログイン画面へ移動</button>
     </nuxt-link>
-    <div>
+    <div style="margin-top: 50px;">
       <label>
+        <p>Name</p>
         <input v-model="displayName">
       </label>
       <label>
+        <p>Email</p>
         <input v-model="email">
       </label>
       <label>
+        <p>PassWorld</p>
+
         <input v-model="emailPassword">
       </label>
     </div>
     <button @click="submitClick">
-      signup
+      アカウント作成する
     </button>
   </div>
 </template>
@@ -55,3 +59,13 @@ export default {
   },
 }
 </script>
+<style>
+input {
+  margin-bottom: 40px;
+  width: 50%; /*親要素いっぱい広げる*/
+  font-size: 16px;
+  border-radius: 3px; /*ボックス角の丸み*/
+  border: 2px solid #ddd; /*枠線*/
+  box-sizing: border-box; /*横幅の解釈をpadding, borderまでとする*/
+}
+</style>
