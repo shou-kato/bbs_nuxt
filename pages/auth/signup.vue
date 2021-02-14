@@ -1,20 +1,20 @@
 <template>
   <div style="text-align: center">
-    <h1>signup</h1>
+    <h1>サインアップ</h1>
     <nuxt-link to="/auth/login">
       <button>ログイン画面へ移動</button>
     </nuxt-link>
     <div style="margin-top: 50px;">
       <label>
-        <p>Name</p>
+        <p>お名前</p>
         <input v-model="displayName">
       </label>
       <label>
-        <p>Email</p>
+        <p>メールアドレス</p>
         <input v-model="email">
       </label>
       <label>
-        <p>PassWorld</p>
+        <p>パスワード</p>
 
         <input v-model="emailPassword">
       </label>

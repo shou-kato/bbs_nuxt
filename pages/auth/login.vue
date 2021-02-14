@@ -7,14 +7,14 @@
     </nuxt-link>
     <div style="margin-top: 50px;">
       <label for="">
-        <p>Email</p>
+        <p>メールアドレス</p>
         <input
           v-model="email"
           type="email"
         >
       </label>
       <label for="">
-        <p>Passworld</p>
+        <p>パスワード</p>
         <input
           v-model="emailPassword"
           type="password"
